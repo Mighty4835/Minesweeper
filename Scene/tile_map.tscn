@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwjiu7834mv3v"]
+
+[ext_resource type="Texture2D" uid="uid://b4mk2dlgal7ou" path="res://Asset/Image20240301184949.png" id="1_mwrle"]
+[ext_resource type="Script" path="res://Script/tile_map.gd" id="2_3gapf"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3du2p"]
+texture = ExtResource("1_mwrle")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_80lxr"]
+tile_size = Vector2i(64, 64)
+sources/1 = SubResource("TileSetAtlasSource_3du2p")
+
+[node name="TIle map" type="TileMap"]
+tile_set = SubResource("TileSet_80lxr")
+format = 2
+layer_0/name = "background"
+layer_1/name = "mine"
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "numbers"
+layer_2/tile_data = PackedInt32Array()
+layer_3/name = "grounded"
+layer_3/tile_data = PackedInt32Array()
+layer_4/name = "flag"
+layer_4/tile_data = PackedInt32Array()
+script = ExtResource("2_3gapf")
