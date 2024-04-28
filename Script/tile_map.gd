@@ -57,7 +57,8 @@ func generate_numbers():
 				var tile_number = get_cell_atlas_coords(number_layer,current_post).x+1
 				set_cell(number_layer, current_post, Tileset_id, cell_list[tile_number+1])
 
-
+func generate_cover():
+	pass
 
 
 func _process(delta):
