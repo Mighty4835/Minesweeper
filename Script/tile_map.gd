@@ -1,6 +1,7 @@
 extends TileMap
 var columns = 15
 var rows = 15
+var click = false
 var background_layer = 0
 var mine_layer = 1
 var number_layer = 2
@@ -31,6 +32,7 @@ func _ready():
 	generate_background()
 	generate_mines()
 	generate_numbers()
+	generate_cover()
 
 func generate_background():
 	for y in range(rows):
@@ -58,9 +60,41 @@ func generate_numbers():
 				set_cell(number_layer, current_post, Tileset_id, cell_list[tile_number+1])
 
 func generate_cover():
-	pass
+	for y in range(rows):
+		for x in range(columns):
+#			print(x,y)
+			set_cell(ground_layer, Vector2i(x,y), Tileset_id, cell_list["black_tile"] )
+
 
 
 func _process(delta):
-	pass
+	var mouse_pos = local_to_map(get_local_mouse_position())
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		process_right_click(mouse_pos)
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		process_left_click(mouse_pos)
 
+func process_left_click(pos):
+	click = true
+	if !is_flag(pos):
+		erase_cell(ground_layer,pos)
+	if is_mine(pos):
+		Mine_explode()
+func Mine_explode():
+	print("Mine_explode")
+
+func process_right_click(pos):
+	click = true
+	if is_flag(pos):
+		erase_cell(flag_layer,pos)
+	else:
+		set_cell(flag_layer, pos, Tileset_id, cell_list["flag"] )
+
+func is_flag(pos):
+	return get_cell_source_id(flag_layer, pos) == 1
+func is_mine(pos):
+	return get_cell_source_id(mine_layer, pos) == 1
+
+func _input(event):
+	if event is InputEventMouseButton and !event.pressed:
+		click = false
